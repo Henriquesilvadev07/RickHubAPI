@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -15,6 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TaskServiceTest {
@@ -22,13 +25,9 @@ class TaskServiceTest {
     @Mock
     private TaskRepository taskRepository;
 
-    @Mock
+    @InjectMocks
     private TaskService taskService;
 
-    @BeforeEach
-    void setup() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     @DisplayName("Should salvar task successfully")
@@ -42,7 +41,16 @@ class TaskServiceTest {
         task.setTitulo(dto.titulo());
         task.setDescricao(dto.descricao());
         task.setStatus(dto.status());
-        task.setDataCriacao(dto.dataCricacao());
+        task.setDataCriacao(dto.dataCriacao());
+
+        when(taskRepository.save(any(TaskModel.class))).thenReturn(task);
+
+        TaskModel taskSalvas = taskService.salvar(dto);
+
+        assertNotNull(taskSalvas);
+        assertEquals("Limpeza", taskSalvas.getTitulo());
+
+        verify(taskRepository, times(1)).save(any(TaskModel.class));
     }
 
 }
