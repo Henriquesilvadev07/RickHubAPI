@@ -12,8 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.scheduling.config.Task;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -51,6 +56,35 @@ class TaskServiceTest {
         assertEquals("Limpeza", taskSalvas.getTitulo());
 
         verify(taskRepository, times(1)).save(any(TaskModel.class));
+    }
+
+    @Test
+    @DisplayName("Should return a list of tasks successfully")
+    void listar() {
+        TaskModel task1 = new TaskModel();
+        task1.setTitulo("Limpeza");
+        task1.setDescricao("Realizar limpeza de perifericos");
+        task1.setDataCriacao(LocalDateTime.now());
+        task1.setStatus(StatusEnum.A_FAZER);
+
+        TaskModel task2 = new TaskModel();
+        task2.setTitulo("Manutencao");
+        task2.setDescricao("Realizar manutencao de perifericos");
+        task2.setDataCriacao(LocalDateTime.now());
+        task2.setStatus(StatusEnum.A_FAZER);
+
+        List<TaskModel> listaMocks = Arrays.asList(task1, task2);
+
+        when(taskRepository.findAll()).thenReturn(listaMocks);
+
+        List<TaskModel> tarefas = taskService.listarTodos();
+
+        //deve testar o retorno da service
+        assertNotNull(tarefas);
+        assertEquals("Limpeza", tarefas.get(0).getTitulo());
+        assertEquals("Manutencao", tarefas.get(1).getTitulo());
+
+        verify(taskRepository, times(1)).findAll();
     }
 
 }
