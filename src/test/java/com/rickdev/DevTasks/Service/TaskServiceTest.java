@@ -79,6 +79,7 @@ class TaskServiceTest {
 
         List<TaskModel> tarefas = taskService.listarTodos();
 
+        //deve testar o retorno da service
         assertNotNull(tarefas);
         assertEquals("Limpeza", tarefas.get(0).getTitulo());
         assertEquals("Manutencao", tarefas.get(1).getTitulo());
