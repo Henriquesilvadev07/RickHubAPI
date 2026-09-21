@@ -53,4 +53,10 @@ class TaskServiceTest {
         verify(taskRepository, times(1)).save(any(TaskModel.class));
     }
 
+    @Test
+    @DisplayName("Should return a list of tasks successfully")
+    void listar() {
+
+    }
+
 }
