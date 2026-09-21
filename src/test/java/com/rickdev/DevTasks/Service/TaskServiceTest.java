@@ -56,6 +56,13 @@ class TaskServiceTest {
     @Test
     @DisplayName("Should return a list of tasks successfully")
     void listar() {
+        TaskModel task1 = new TaskModel();
+        task1.setTitulo("Limpeza");
+        task1.setDescricao("Realizar limpeza de perifericos");
+        task1.setDataCriacao(LocalDateTime.now());
+        task1.setStatus(StatusEnum.A_FAZER);
+
+
 
     }
 
