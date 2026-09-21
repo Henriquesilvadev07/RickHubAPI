@@ -12,10 +12,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.scheduling.config.Task;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -71,8 +73,17 @@ class TaskServiceTest {
         task2.setDataCriacao(LocalDateTime.now());
         task2.setStatus(StatusEnum.A_FAZER);
 
+        List<TaskModel> listaMocks = Arrays.asList(task1, task2);
 
+        when(taskRepository.findAll()).thenReturn(listaMocks);
 
+        List<TaskModel> tarefas = taskService.listarTodos();
+
+        assertNotNull(tarefas);
+        assertEquals("Limpeza", tarefas.get(0).getTitulo());
+        assertEquals("Manutencao", tarefas.get(1).getTitulo());
+
+        verify(taskRepository, times(1)).findAll();
     }
 
 }
