@@ -12,8 +12,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -61,6 +64,12 @@ class TaskServiceTest {
         task1.setDescricao("Realizar limpeza de perifericos");
         task1.setDataCriacao(LocalDateTime.now());
         task1.setStatus(StatusEnum.A_FAZER);
+
+        TaskModel task2 = new TaskModel();
+        task2.setTitulo("Manutencao");
+        task2.setDescricao("Realizar manutencao de perifericos");
+        task2.setDataCriacao(LocalDateTime.now());
+        task2.setStatus(StatusEnum.A_FAZER);
 
 
 
