@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -85,6 +86,32 @@ class TaskServiceTest {
         assertEquals("Manutencao", tarefas.get(1).getTitulo());
 
         verify(taskRepository, times(1)).findAll();
+    }
+
+    @Test
+    @DisplayName("Should return sucess finding taskById")
+    void findWithSucees() {
+        Long id = 1L;
+        TaskDto dto = new TaskDto("Limpeza",
+                "Limpar os PC",
+                StatusEnum.A_FAZER,
+                LocalDateTime.now());
+
+        TaskModel task = new TaskModel();
+        task.setTitulo(dto.titulo());
+        task.setDescricao(dto.descricao());
+        task.setStatus(dto.status());
+        task.setDataCriacao(dto.dataCriacao());
+
+        when(taskRepository.findById(id)).thenReturn(Optional.of(task));
+        when(taskRepository.saveAndFlush(any(TaskModel.class))).thenReturn(task);
+
+        TaskModel taskAtualizada = taskService.atualizarPorId(id, dto);
+
+        assertNotNull(taskAtualizada);
+        assertEquals("Limpeza", taskAtualizada.getTitulo());
+
+        verify(taskRepository, times(1)).saveAndFlush(any(TaskModel.class));
     }
 
 }
