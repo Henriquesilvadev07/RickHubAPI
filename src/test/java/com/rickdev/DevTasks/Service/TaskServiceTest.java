@@ -98,16 +98,20 @@ class TaskServiceTest {
                 LocalDateTime.now());
 
         TaskModel task = new TaskModel();
-        task.setId(id);
         task.setTitulo(dto.titulo());
         task.setDescricao(dto.descricao());
         task.setStatus(dto.status());
         task.setDataCriacao(dto.dataCriacao());
 
         when(taskRepository.findById(id)).thenReturn(Optional.of(task));
-        when(taskRepository.save(any(TaskModel.class))).thenReturn(task);
+        when(taskRepository.saveAndFlush(any(TaskModel.class))).thenReturn(task);
 
-        TaskModel taskAtualizada = taskService.acharPorId(id);
+        TaskModel taskAtualizada = taskService.atualizarPorId(id, dto);
+
+        assertNotNull(taskAtualizada);
+        assertEquals("Limpeza", taskAtualizada.getTitulo());
+
+        verify(taskRepository, times(1)).saveAndFlush(any(TaskModel.class));
     }
 
 }
