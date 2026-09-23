@@ -90,7 +90,7 @@ class TaskServiceTest {
 
     @Test
     @DisplayName("Should return sucess finding taskById")
-    void findWithSucees() {
+    void atualizarWithSucees() {
         Long id = 1L;
         TaskDto dto = new TaskDto("Limpeza",
                 "Limpar os PC",
@@ -113,5 +113,6 @@ class TaskServiceTest {
 
         verify(taskRepository, times(1)).saveAndFlush(any(TaskModel.class));
     }
+
 
 }
