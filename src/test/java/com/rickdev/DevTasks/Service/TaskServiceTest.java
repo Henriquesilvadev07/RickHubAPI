@@ -90,7 +90,7 @@ class TaskServiceTest {
 
     @Test
     @DisplayName("Should return sucess finding taskById")
-    void findWithSucees() {
+    void atualizarWithSucees() {
         Long id = 1L;
         TaskDto dto = new TaskDto("Limpeza",
                 "Limpar os PC",
@@ -112,6 +112,33 @@ class TaskServiceTest {
         assertEquals("Limpeza", taskAtualizada.getTitulo());
 
         verify(taskRepository, times(1)).saveAndFlush(any(TaskModel.class));
+    }
+
+    @Test
+    @DisplayName("Should return exception when id is invalid")
+    void atualizarWithException() {
+        Long id = 1L;
+        TaskDto dto = new TaskDto("Limpeza",
+                "Limpar os PC",
+                StatusEnum.A_FAZER,
+                LocalDateTime.now());
+
+        TaskModel task = new TaskModel();
+        task.setTitulo(dto.titulo());
+        task.setDescricao(dto.descricao());
+        task.setStatus(dto.status());
+        task.setDataCriacao(dto.dataCriacao());
+
+        when(taskRepository.findById(id)).thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, (() -> {
+            taskService.atualizarPorId(id, dto);
+        }));
+
+        assertEquals("Task Nao existente", exception.getMessage());
+
+        verify(taskRepository, never()).saveAndFlush(any(TaskModel.class));
+
     }
 
 }
