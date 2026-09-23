@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -97,10 +98,16 @@ class TaskServiceTest {
                 LocalDateTime.now());
 
         TaskModel task = new TaskModel();
+        task.setId(id);
         task.setTitulo(dto.titulo());
         task.setDescricao(dto.descricao());
         task.setStatus(dto.status());
         task.setDataCriacao(dto.dataCriacao());
+
+        when(taskRepository.findById(id)).thenReturn(Optional.of(task));
+        when(taskRepository.save(any(TaskModel.class))).thenReturn(task);
+
+        TaskModel taskAtualizada = taskService.acharPorId(id);
     }
 
 }
