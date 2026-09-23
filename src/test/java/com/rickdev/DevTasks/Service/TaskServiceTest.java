@@ -129,7 +129,15 @@ class TaskServiceTest {
         task.setStatus(dto.status());
         task.setDataCriacao(dto.dataCriacao());
 
+        when(taskRepository.findById(id)).thenReturn(Optional.empty());
 
+        RuntimeException exception = assertThrows(RuntimeException.class, (() -> {
+            taskService.atualizarPorId(id, dto);
+        }));
+
+        assertEquals("Task Nao existente", exception.getMessage());
+
+        verify(taskRepository, never()).saveAndFlush(task);
 
     }
 
