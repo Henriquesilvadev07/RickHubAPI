@@ -114,5 +114,10 @@ class TaskServiceTest {
         verify(taskRepository, times(1)).saveAndFlush(any(TaskModel.class));
     }
 
+    @Test
+    @DisplayName("Should return exception when id is invalid")
+    void atualizarWithException() {
+
+    }
 
 }
