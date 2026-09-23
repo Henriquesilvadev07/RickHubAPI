@@ -137,7 +137,7 @@ class TaskServiceTest {
 
         assertEquals("Task Nao existente", exception.getMessage());
 
-        verify(taskRepository, never()).saveAndFlush(task);
+        verify(taskRepository, never()).saveAndFlush(any(TaskModel.class));
 
     }
 
