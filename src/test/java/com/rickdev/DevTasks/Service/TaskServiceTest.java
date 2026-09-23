@@ -87,4 +87,10 @@ class TaskServiceTest {
         verify(taskRepository, times(1)).findAll();
     }
 
+    @Test
+    @DisplayName("Should return sucess finding taskById")
+    void findWithSucees() {
+
+    }
+
 }
