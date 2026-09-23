@@ -117,6 +117,19 @@ class TaskServiceTest {
     @Test
     @DisplayName("Should return exception when id is invalid")
     void atualizarWithException() {
+        Long id = 1L;
+        TaskDto dto = new TaskDto("Limpeza",
+                "Limpar os PC",
+                StatusEnum.A_FAZER,
+                LocalDateTime.now());
+
+        TaskModel task = new TaskModel();
+        task.setTitulo(dto.titulo());
+        task.setDescricao(dto.descricao());
+        task.setStatus(dto.status());
+        task.setDataCriacao(dto.dataCriacao());
+
+
 
     }
 
