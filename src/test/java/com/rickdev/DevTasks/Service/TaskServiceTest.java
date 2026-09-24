@@ -140,6 +140,13 @@ class TaskServiceTest {
     @DisplayName("Should return sucess finding task by id")
     void findWithSuccess() {
 
+        Long id = 1L;
+        TaskModel task = new TaskModel();
+        task.setTitulo("Manutencao");
+        task.setDescricao("Realizar manutencao de perifericos");
+        task.setDataCriacao(LocalDateTime.now());
+        task.setStatus(StatusEnum.A_FAZER);
+
     }
 
 }
