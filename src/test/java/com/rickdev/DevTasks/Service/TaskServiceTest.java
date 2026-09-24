@@ -136,4 +136,10 @@ class TaskServiceTest {
 
     }
 
+    @Test
+    @DisplayName("Should return sucess finding task by id")
+    void findWithSuccess() {
+
+    }
+
 }
