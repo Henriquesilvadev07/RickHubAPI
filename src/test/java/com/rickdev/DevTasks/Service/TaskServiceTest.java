@@ -170,8 +170,13 @@ class TaskServiceTest {
 
         when(taskRepository.findById(id)).thenReturn(Optional.empty());
 
+        RuntimeException exception = assertThrows(RuntimeException.class, (()->
+        {taskService.acharPorId(id);})
+        );
 
+        assertEquals("Id nao encontrado na base de dados", exception.getMessage());
 
+        verify(taskRepository, times(1)).findById(id);
 
     }
 
