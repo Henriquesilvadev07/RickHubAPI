@@ -168,6 +168,11 @@ class TaskServiceTest {
         task.setDataCriacao(LocalDateTime.now());
         task.setStatus(StatusEnum.A_FAZER);
 
+        when(taskRepository.findById(id)).thenReturn(Optional.empty());
+
+
+
+
     }
 
 }
