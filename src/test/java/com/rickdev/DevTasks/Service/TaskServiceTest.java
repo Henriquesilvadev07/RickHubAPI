@@ -161,6 +161,12 @@ class TaskServiceTest {
     @Test
     @DisplayName("Should return a exception with a invalid id")
     void findWithException() {
+        Long id = 1L;
+        TaskModel task = new TaskModel();
+        task.setTitulo("Manutencao");
+        task.setDescricao("Realizar manutencao de perifericos");
+        task.setDataCriacao(LocalDateTime.now());
+        task.setStatus(StatusEnum.A_FAZER);
 
     }
 
