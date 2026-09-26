@@ -158,4 +158,26 @@ class TaskServiceTest {
 
     }
 
+    @Test
+    @DisplayName("Should return a exception with a invalid id")
+    void findWithException() {
+        Long id = 1L;
+        TaskModel task = new TaskModel();
+        task.setTitulo("Manutencao");
+        task.setDescricao("Realizar manutencao de perifericos");
+        task.setDataCriacao(LocalDateTime.now());
+        task.setStatus(StatusEnum.A_FAZER);
+
+        when(taskRepository.findById(id)).thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, (()->
+        {taskService.acharPorId(id);})
+        );
+
+        assertEquals("Id nao encontrado na base de dados", exception.getMessage());
+
+        verify(taskRepository, times(1)).findById(id);
+
+    }
+
 }
