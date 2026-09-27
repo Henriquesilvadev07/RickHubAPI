@@ -185,12 +185,9 @@ class TaskServiceTest {
     void deleteWithSucess() {
 
         Long id = 1L;
-        TaskModel task = new TaskModel();
-        task.setTitulo("Manutencao");
-        task.setDescricao("Realizar manutencao de perifericos");
-        task.setDataCriacao(LocalDateTime.now());
-        task.setStatus(StatusEnum.A_FAZER);
-
+        when(taskRepository.existsById(id)).thenReturn(true);
+        taskService.deletarPorId(id);
+        verify(taskRepository, times(1)).deleteById(id);
 
     }
 
