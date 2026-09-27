@@ -180,4 +180,16 @@ class TaskServiceTest {
 
     }
 
+    @Test
+    @DisplayName("Should return sucess when delete a task with a valid id")
+    void deleteWithSucess() {
+
+        Long id = 1L;
+        //nao tem necessidade de instanciar model
+        when(taskRepository.existsById(id)).thenReturn(true);
+        taskService.deletarPorId(id);
+        verify(taskRepository, times(1)).deleteById(id);
+
+    }
+
 }
