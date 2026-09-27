@@ -196,7 +196,10 @@ class TaskServiceTest {
     @DisplayName("Should return a exception with a invalid id")
     void deleteWithException() {
         Long id = 1L;
-
+        when(taskRepository.existsById(id)).thenReturn(false);
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {taskService.deletarPorId(id);});
+        assertEquals("Task nao existe", exception.getMessage());
+        verify(taskRepository, never()).deleteById(id);
 
     }
 
