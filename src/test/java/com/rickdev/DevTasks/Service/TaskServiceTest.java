@@ -192,4 +192,10 @@ class TaskServiceTest {
 
     }
 
+    @Test
+    @DisplayName("Should return a exception with a invalid id")
+    void deleteWithException() {
+
+    }
+
 }
