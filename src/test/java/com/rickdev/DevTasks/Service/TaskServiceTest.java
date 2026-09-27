@@ -184,6 +184,14 @@ class TaskServiceTest {
     @DisplayName("Should return sucess when delete a task with a valid id")
     void deleteWithSucess() {
 
+        Long id = 1L;
+        TaskModel task = new TaskModel();
+        task.setTitulo("Manutencao");
+        task.setDescricao("Realizar manutencao de perifericos");
+        task.setDataCriacao(LocalDateTime.now());
+        task.setStatus(StatusEnum.A_FAZER);
+
+
     }
 
 }
