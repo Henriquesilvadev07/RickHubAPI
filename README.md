@@ -9,7 +9,8 @@ API REST desenvolvida em Java para gerenciamento de usuários e autenticação s
 <img width="947" height="616" alt="Screenshot 2026-10-24 at 18 26 13" src="https://github.com/user-attachments/assets/bbd18739-f5b6-498c-b5fb-1425965f949f" />
 
 
-Funcionalidades
+Funcionalidades:
+
 Gerenciamento de Usuários: Cadastro, atualização, consulta e exclusão de contas.
 
 Autenticação Stateless: Login com emissão de token JWT, ideal para arquiteturas modernas de API REST.
